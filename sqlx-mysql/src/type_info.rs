@@ -63,6 +63,11 @@ impl MySqlTypeInfo {
             max_size: Some(column.max_size),
         }
     }
+
+    /// Returns `true` if the column this type describes is nullable
+    pub fn nullable(&self) -> bool {
+        !self.flags.contains(ColumnFlags::NOT_NULL)
+    }
 }
 
 impl Display for MySqlTypeInfo {
