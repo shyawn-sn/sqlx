@@ -68,6 +68,14 @@ impl MySqlTypeInfo {
     pub fn nullable(&self) -> bool {
         !self.flags.contains(ColumnFlags::NOT_NULL)
     }
+
+    /// Returns the maximum display length of the column this type describes, if known.
+    ///
+    /// For integer types, this is (M) in `BIT(M)` or `TINYINT(M)`. For date/time types, it
+    /// includes the fractional seconds, e.g. 19 for `DATETIME` and 23 for `DATETIME(3)`.
+    pub fn max_size(&self) -> Option<u32> {
+        self.max_size
+    }
 }
 
 impl Display for MySqlTypeInfo {
